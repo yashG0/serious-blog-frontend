@@ -9,6 +9,8 @@ import {Admin} from "./pages/Admin.jsx";
 import {Category} from "./pages/Category.jsx";
 import {Blog} from "./pages/Blog.jsx";
 import {Contact} from "./pages/Contact.jsx";
+import {ViewAccount} from "./pages/ViewAccount.jsx";
+import {BlogDetail} from "./pages/BlogDetail.jsx";
 
 
 const router = createBrowserRouter([
@@ -19,11 +21,13 @@ const router = createBrowserRouter([
 			{path: '/', element: <Hero/>},
 			{path: '/create', element: <CreateBlog/>},
 			{path: '/login', element: <Login/>},
-			{path: '/signup', element: <Signup/>},
+			{path: '/register', element: <Signup/>},
 			{path: '/admin', element: <Admin/>},
 			{path: '/category', element: <Category/>},
 			{path: '/blogs', element: <Blog/>},
 			{path: '/contact', element: <Contact/>},
+			{path: '/account', element: <ViewAccount/>},
+			{path: '/blog/:id', element: <BlogDetail/>},
 		]
 	}
 ])

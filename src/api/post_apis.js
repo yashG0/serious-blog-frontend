@@ -36,7 +36,6 @@ const fetchPostById = async () => {
 	}
 }
 
-
 const fetchPostByCategoryId = async (categoryId) => {
 	try {
 		const response = await axios.get(`${BACKEND_URL}/api/v1/posts/all/by_category/${categoryId}`);
@@ -52,4 +51,27 @@ const fetchPostByCategoryId = async (categoryId) => {
 	}
 }
 
-export {fetchAllPosts, fetchPostById, fetchPostByCategoryId};
+const fetchPostByUserId = async () => {
+
+	const getToken = localStorage.getItem("token");
+	try {
+		const response = await axios.get(`${BACKEND_URL}/api/v1/posts/all/by_user`, {
+			headers: {
+				"accept": "application/json",
+				"Authorization": `Bearer ${getToken}`
+			}
+		});
+
+		if (response.status === 200) {
+			return response.data;
+		}
+		log.debug(`Failed to fetch posts: status code ${response.status}`);
+		return null;
+
+	} catch (e) {
+		log.error(`Failed to fetch post by user id: ${e}`);
+		throw new Error("Failed to fetch post by user id");
+	}
+}
+
+export {fetchAllPosts, fetchPostById, fetchPostByCategoryId, fetchPostByUserId};

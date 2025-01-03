@@ -32,7 +32,7 @@ export const Hero = () => {
 
 	return (
 		<>
-			<div className="text-purple-400 absolute top-0 z-[-2] h-1/2 w-full bg-black"></div>
+			<div className="absolute top-0 z-[-2] h-1/2 w-full bg-black"></div>
 
 			{/* OUTER CONTAINER */}
 			<main className="container mx-auto h-screen w-full px-4 md:px-6 lg:px-8">
@@ -79,6 +79,7 @@ export const Hero = () => {
 
 				{/* MAIN SECTION */}
 				<section className="text-black w-full">
+
 					{/* CATEGORY LIST */}
 					<ul
 						className="capitalize flex flex-wrap text-sm md:text-xl p-4 md:p-5 justify-center space-x-4 md:space-x-6 poppins-medium w-full">
@@ -107,9 +108,9 @@ export const Hero = () => {
 								Failed to Fetch Data from server
 							</span>
 						) : postData.length === 0 ? (
-							<span className="bg-slate-200 text-lg md:text-3xl p-2 flex justify-center items-center w-full h-full">
-								No Data Found
-							</span>
+								<span className="bg-slate-200 text-lg md:text-3xl p-2 flex justify-center items-center w-full h-full">
+									No Data Found
+								</span>
 						) : (
 							postData.map((item, key) => (
 								<PostCard key={key} title={item.title} image={item.image} content={item.content}/>

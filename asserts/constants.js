@@ -9,7 +9,7 @@ const NAV_LINKS = [
 		link: "/category",
 	}, {
 		id: 3,
-		name: "blogs",
+		name: "my blogs",
 		link: "/blogs",
 	}, {
 		id: 4,
@@ -22,8 +22,8 @@ const NAV_LINKS = [
 	}
 ];
 
-const BACKEND_URL = "https://serious-blog-backend.onrender.com";
-// const BACKEND_URL = " http://127.0.0.1:8000";
+// const BACKEND_URL = "https://serious-blog-backend.onrender.com";
+const BACKEND_URL = "http://127.0.0.1:8000";
 
 
 const CATEGORIES = ["All", "Tech", "Health", "Lifestyle", "Travel", "Food"];

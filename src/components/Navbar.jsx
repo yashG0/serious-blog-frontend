@@ -2,9 +2,11 @@ import {Link} from "react-router-dom";
 import {motion} from "framer-motion";
 import {NAV_LINKS} from "../../asserts/constants.js";
 import {useState} from "react";
+import {useSelector} from "react-redux";
 
 export const Navbar = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const authStatus = useSelector(state => state.auth.value);
 
 	return (
 		<>
@@ -42,19 +44,32 @@ export const Navbar = () => {
 						</ul>
 
 						{/* AUTH MANAGEMENT */}
-						<div className="flex items-center space-x-6 text-sm font-medium text-gray-300 uppercase tracking-wide">
-							<motion.button
-								className="px-4 py-2 bg-transparent border-2 border-purple-400 hover:bg-purple-400 hover:text-black rounded"
-								initial={{opacity: 0}}
-								animate={{opacity: 1}}>
-								<Link to="/login">Login</Link>
-							</motion.button>
-							<motion.button className="px-4 py-2 bg-purple-400 hover:bg-purple-500 text-black rounded"
-							               initial={{opacity: 0}}
-							               animate={{opacity: 1}}>
-								<Link to="/register">Register</Link>
-							</motion.button>
-						</div>
+						{
+							authStatus ? (
+								<div className="flex items-center space-x-6 text-sm font-medium text-gray-300 uppercase tracking-wide">
+									<motion.button
+										className="px-4 py-2 bg-transparent capitalize border-2 border-purple-400 hover:bg-purple-400 hover:text-black rounded"
+										initial={{opacity: 0}}
+										animate={{opacity: 1}}>
+										<Link to="/account">my account</Link>
+									</motion.button>
+								</div>
+							) : (
+								<div className="flex items-center space-x-6 text-sm font-medium text-gray-300 uppercase tracking-wide">
+									<motion.button
+										className="px-4 py-2 bg-transparent border-2 border-purple-400 hover:bg-purple-400 hover:text-black rounded"
+										initial={{opacity: 0}}
+										animate={{opacity: 1}}>
+										<Link to="/login">Login</Link>
+									</motion.button>
+									<motion.button className="px-4 py-2 bg-purple-400 hover:bg-purple-500 text-black rounded"
+									               initial={{opacity: 0}}
+									               animate={{opacity: 1}}>
+										<Link to="/register">Register</Link>
+									</motion.button>
+								</div>
+							)
+						}
 					</div>
 
 					{/* MOBILE MENU ICON */}
@@ -72,7 +87,7 @@ export const Navbar = () => {
 			</nav>
 
 			{/* MOBILE MENU */}
-			<div className={`sm:hidden ${isMenuOpen ? "block" : "hidden"} bg-black text-white`}>
+			<div className={`sm:hidden ${isMenuOpen ? "block" : "hidden"} bg-black text-white fixed w-full `}>
 				<ul className="space-y-4 py-4 px-6">
 					{
 						NAV_LINKS.map((item, key) => (
@@ -82,17 +97,33 @@ export const Navbar = () => {
 						))
 					}
 					<div className="flex flex-col space-y-4 mt-4">
-						<motion.button
-							className="px-4 py-2 bg-transparent border-2 border-purple-400 hover:bg-purple-400 hover:text-black rounded"
-							initial={{opacity: 0}}
-							animate={{opacity: 1}}>
-							<Link to="/login">Login</Link>
-						</motion.button>
-						<motion.button className="px-4 py-2 bg-purple-400 hover:bg-purple-500 text-black rounded"
-						               initial={{opacity: 0}}
-						               animate={{opacity: 1}}>
-							<Link to="/register">Register</Link>
-						</motion.button>
+						{
+							authStatus ? (
+								<>
+									<motion.button className="px-4 py-2 bg-purple-400 hover:bg-purple-500 text-black rounded"
+									               initial={{opacity: 0}}
+									               animate={{opacity: 1}}
+									               onClick={() => setIsMenuOpen(false)}>
+										<Link to="/account">My Account</Link>
+									</motion.button>
+								</>
+							) : (
+								<>
+									<motion.button
+										className="px-4 py-2 bg-transparent border-2 border-purple-400 hover:bg-purple-400 hover:text-black rounded"
+										initial={{opacity: 0}}
+										animate={{opacity: 1}}>
+										<Link to="/login">Login</Link>
+									</motion.button>
+									<motion.button className="px-4 py-2 bg-purple-400 hover:bg-purple-500 text-black rounded"
+									               initial={{opacity: 0}}
+									               animate={{opacity: 1}}>
+										<Link to="/register">Register</Link>
+									</motion.button>
+								</>
+							)
+						}
+
 					</div>
 				</ul>
 			</div>
