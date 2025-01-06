@@ -99,7 +99,7 @@ export const Hero = () => {
 
 					{/* POSTS */}
 					<div
-						className={` w-full ${error ? "text-purple-400 mt-20" : "grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 md:gap-10 justify-items-center"} h-[80vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-gray-300`}>
+						className={` w-full ${error ? "text-purple-400 mt-20" : "grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 md:gap-10 justify-items-center"} overflow-y-scroll scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-gray-300 h-[80vh]`}>
 						{loading ? (
 							<div className="flex justify-center items-center h-full w-full">
 								<img className="w-16 h-16" src={loadingIcon} alt="loading"/>

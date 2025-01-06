@@ -66,7 +66,9 @@ export const Blog = () => {
 									<img src={loadingIcon} alt="loading" className="w-16 h-16"/>
 								</div>
 							) : error ? (
-								<div className="text-center text-lg text-red-500">{error}</div>
+								<div className="text-center absolute bg-black h-10 p-2 text-lg text-red-500">
+									{error instanceof Error ? error.message : error}
+								</div>
 							) : (
 								posts.length === 0 ? (
 										<div className="bg-gray-300 mx-auto p-2 text-center text-lg text-red-500">You have no post!</div>
