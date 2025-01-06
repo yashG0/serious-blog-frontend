@@ -1,13 +1,20 @@
 import {Link} from "react-router-dom";
 import {motion} from "framer-motion";
 import {NAV_LINKS} from "../../asserts/constants.js";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
+import {checkUserIsAdmin} from "../api/user_apis.js";
 
 export const Navbar = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const authStatus = useSelector(state => state.auth.value);
+	const [isAdmin, setIsAdmin] = useState(false);
 
+	useEffect(() => {
+		if (authStatus) {
+			checkUserIsAdmin().then(data => setIsAdmin(data)).catch(err => log.error(err));
+		}
+	}, [])
 	return (
 		<>
 			{/* OUTER CONTAINER */}
@@ -37,7 +44,11 @@ export const Navbar = () => {
 									           className="hover:text-purple-400 transition-colors duration-300 border-b-2 border-transparent hover:border-purple-400"
 									           whileHover={{scale: 1.1}}
 									           whileTap={{scale: 0.95}}>
-										<Link to={item.link}>{item.name}</Link>
+										{(isAdmin || item.name !== "admin") && (
+											<Link to={item.link}>
+												{item.name}
+											</Link>
+										)}
 									</motion.li>
 								))
 							}

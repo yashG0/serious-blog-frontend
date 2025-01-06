@@ -1,6 +1,6 @@
 import {motion} from "framer-motion";
 import {Link} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {signInUser} from "../api/auth_apis.js";
 
 export const Login = () => {
@@ -12,8 +12,7 @@ export const Login = () => {
 	const submitHandler = (e) => {
 		e.preventDefault();
 		signInUser(email, password)
-			.then((data) => {
-				console.log(data);
+			.then(() => {
 				window.location.href = "/account";
 			})
 			.catch((err) => setError(err))
@@ -74,6 +73,7 @@ export const Login = () => {
 									type="email"
 									className="w-full p-2 border border-purple-300 rounded focus:outline-none focus:ring focus:ring-purple-300"
 									placeholder="Enter your email"
+									autoComplete="email"
 								/>
 							</div>
 							<div>
@@ -87,6 +87,7 @@ export const Login = () => {
 									type="password"
 									className="w-full p-2 border border-purple-300 rounded focus:outline-none focus:ring focus:ring-purple-300"
 									placeholder="Enter your password"
+									autoComplete="current-password"
 								/>
 							</div>
 							<button

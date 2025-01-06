@@ -26,4 +26,23 @@ const fetchUserData = async () => {
 	}
 }
 
-export {fetchUserData};
+const checkUserIsAdmin = async () => {
+	const token = localStorage.getItem("access_token");
+	if (!token) {
+		log.error("No token found");
+		throw new Error("No token found");
+	}
+	const response = await axios.get(`${BACKEND_URL}/api/v1/user/is_admin`, {
+		headers: {
+			"Authorization": `Bearer ${token}`,
+			"accept": "application/json",
+		}
+	})
+
+	if (response.status === 200) {
+		return response.data;
+	}
+	log.error("Failed to fetch user data");
+}
+
+export {fetchUserData, checkUserIsAdmin};

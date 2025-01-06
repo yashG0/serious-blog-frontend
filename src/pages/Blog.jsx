@@ -1,27 +1,25 @@
 import {motion} from "framer-motion";
 import {useState, useEffect} from "react";
-import {fetchPostByUserId} from "../api/post_apis.js";
+import { fetchPostByUserId} from "../api/post_apis.js";
 import loadingIcon from "../../asserts/loading_icon.gif";
 import {PostCard} from "../components/PostCard.jsx";
+import {CreatePostForm} from "../components/CreatePostForm.jsx";
+import { IoAdd } from "react-icons/io5";
 
 
 export const Blog = () => {
-	const [posts, setPosts] = useState([{
-		"title": "Exploring the Cosmos",
-		"content": "An in-depth look at recent advancements in space exploration.",
-		"user_id": "493a3bd7-abde-4758-b430-e1fc8a650f12",
-		"created_at": "2024-12-28T18:38:05.816338",
-		"id": "8cd127d9-3cef-444c-8b57-c263ec798a98",
-		"image": "static/images/0ba22150-5954-4232-a13e-51ab631ed639.jpg",
-		"category_id": "17f1cfbc-b485-446b-b128-a62990e6331f",
-		"updated_at": "2024-12-28T18:38:05.816340"
-	}]);
+	const [posts, setPosts] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
+	const [showCreatePostForm, setShowCreatePostForm] = useState(false); // Manage form visibility
 
-	// useEffect(() => {
-	// 	fetchPostByUserId().then((data) => setPosts(data)).catch((err) => setError(err)).finally(() => setLoading(false));
-	// })
+	useEffect(() => {
+		fetchPostByUserId().then((data) => setPosts(data)).catch((err) => setError(err)).finally(() => setLoading(false));
+	})
+
+	const toggleCreatePostForm = () => {
+		setShowCreatePostForm((prevState) => !prevState); // Toggle form visibility
+	};
 
 	return (
 		<>
@@ -57,21 +55,44 @@ export const Blog = () => {
 
 
 				{/* LOWER CONTAINER */}
-				<section className={"text-black w-full my-9"}>
-					<div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
+				<section className={"text-black w-full my-9 flex justify-between flex-col items-center"}>
+
+					{/* USER POSTs DATA */}
+					<div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 px-2 h-[80vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-gray-300">
 						{/* Loading or error states */}
-						{loading ? (
-							<div className="flex justify-center items-center w-full">
-								<img src={loadingIcon} alt="loading" className="w-16 h-16"/>
-							</div>
-						) : error ? (
-							<div className="text-center text-lg text-red-500">{error}</div>
-						) : (
-							posts.map((post, index) => (
-								<PostCard key={index} title={post.title} image={post.image} content={post.content}/>
-							))
-						)}
+						{
+							loading ? (
+								<div className="flex justify-center items-center w-full">
+									<img src={loadingIcon} alt="loading" className="w-16 h-16"/>
+								</div>
+							) : error ? (
+								<div className="text-center text-lg text-red-500">{error}</div>
+							) : (
+								posts.length === 0 ? (
+										<div className="bg-gray-300 mx-auto p-2 text-center text-lg text-red-500">You have no post!</div>
+									) :
+									posts.map((post, index) => (
+										<PostCard key={index} title={post.title} image={post.image} content={post.content}/>
+									))
+							)}
 					</div>
+
+					{/* ADD NEW POST BUTTON */}
+					<div className="mt-4 flex justify-center">
+						<button
+							onClick={toggleCreatePostForm}
+							className="bg-violet-600 text-white p-4 rounded-full hover:bg-violet-700 transition">
+							{/* Plus Icon */}
+							<span className="text-xl"> <IoAdd /> </span>
+						</button>
+					</div>
+
+					{/* CONDITIONAL CREATE POST FORM */}
+					{showCreatePostForm && (
+						<div className="mt-6">
+							<CreatePostForm />
+						</div>
+					)}
 				</section>
 			</main>
 		</>

@@ -8,7 +8,7 @@ import {
 } from "@material-tailwind/react";
 import {BACKEND_URL} from "../../asserts/constants.js";
 
-export function PostCard({title, content, image}) {
+export function PostCard({title, content, image, id}) {
 	return (
 		<Card className="mt-6 w-full sm:w-96 md:w-80 lg:w-96 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white">
 			<CardHeader
@@ -40,6 +40,7 @@ export function PostCard({title, content, image}) {
 				<Button
 					className="text-white bg-purple-400 hover:bg-purple-600 shadow-md hover:shadow-lg"
 					size="sm"
+					onClick={() => {window.location.href = `/post/${id}`}}
 				>
 					Read More
 				</Button>

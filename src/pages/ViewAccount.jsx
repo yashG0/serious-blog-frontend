@@ -13,7 +13,6 @@ export const ViewAccount = () => {
 	useEffect(() => {
 		fetchUserData().then((data) => {
 			setUserData(data)
-			console.log(data)
 		}).catch((err) => setError(err)).finally(() => setLoading(false))
 	}, [])
 
@@ -40,7 +39,6 @@ export const ViewAccount = () => {
 						animate={{scale: 1}}
 					>
 						View Your Account
-
 					</motion.h1>
 
 					{/* BLOG PARAGRAPH */}
@@ -55,6 +53,7 @@ export const ViewAccount = () => {
 
 				{/* LOWER SECTION	*/}
 				<section className="md:mt-8 w-full bg-gray-200  rounded-lg shadow-lg shadow-gray-300 p-6 md:p-8">
+
 					{/* Loading State */}
 					{loading && (
 						<div className="flex justify-center items-center h-full w-full">
@@ -70,6 +69,7 @@ export const ViewAccount = () => {
 					{/* User Data */}
 					{userData && (
 						<div className="space-y-6">
+
 							{/* Heading */}
 							<h2 className="text-2xl font-extrabold text-center text-gray-800 roboto-bold">
 								Account Details
@@ -129,7 +129,7 @@ export const ViewAccount = () => {
 				{/* LOGOUT BUTTON	*/}
 				<div className={"text-black text-center mt-8"}>
 					<motion.button
-						className="px-4 py-2  bg-transparent capitalize border-2 bg-red-500 text-white hover:bg-red-600 rounded"
+						className="px-4 py-2  capitalize border-2 bg-red-500 text-white hover:bg-red-600 rounded"
 						initial={{opacity: 0}}
 						animate={{opacity: 1}}
 						onClick={logOutHandler}>

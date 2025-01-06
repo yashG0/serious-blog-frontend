@@ -8,6 +8,7 @@ import loadingIcon from "../../asserts/loading_icon.gif";
 import {PostCard} from "../components/PostCard.jsx";
 import {fetchAllCategory} from "../api/category_apis.js";
 import {get_id_by_category_name} from "../utils/get_id_by_category_name.js";
+import {Footer} from "../components/Footer.jsx";
 
 export const Hero = () => {
 	const [postData, setPostData] = useState([]);
@@ -98,7 +99,7 @@ export const Hero = () => {
 
 					{/* POSTS */}
 					<div
-						className={`w-full ${error ? "text-purple-400 mt-20" : "grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 md:gap-10 justify-items-center"}`}>
+						className={` w-full ${error ? "text-purple-400 mt-20" : "grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 md:gap-10 justify-items-center"} h-[80vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-gray-300`}>
 						{loading ? (
 							<div className="flex justify-center items-center h-full w-full">
 								<img className="w-16 h-16" src={loadingIcon} alt="loading"/>
@@ -108,12 +109,12 @@ export const Hero = () => {
 								Failed to Fetch Data from server
 							</span>
 						) : postData.length === 0 ? (
-								<span className="bg-slate-200 text-lg md:text-3xl p-2 flex justify-center items-center w-full h-full">
+							<span className="bg-slate-200 text-lg md:text-3xl p-2 flex justify-center items-center w-full h-full">
 									No Data Found
 								</span>
 						) : (
 							postData.map((item, key) => (
-								<PostCard key={key} title={item.title} image={item.image} content={item.content}/>
+								<PostCard key={key} title={item.title} image={item.image} content={item.content} id={item.id}/>
 							))
 						)}
 					</div>
